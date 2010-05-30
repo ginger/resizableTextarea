@@ -1,0 +1,11 @@
+* html .textarea,
+* html .textarea2 {
+	display: inline;
+	zoom: 1;
+}
+*+html .textarea,
+*+html .textarea2 {
+	display: inline;
+	zoom: 1;
+}
+.resize textarea { filter: alpha(opacity=50); }
