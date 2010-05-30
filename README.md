@@ -11,9 +11,9 @@ How to use
 ----------
 	HTML
 	-----------
-	'<div class="textarea">'
-		'<textarea cols="40" rows="5"></textarea>'
-	'</div>'
+	`<div class="textarea">`
+		`<textarea cols="40" rows="5"></textarea>`
+	`</div>`
 	
 	CSS
 	-----------

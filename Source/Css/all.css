@@ -67,7 +67,7 @@ h2 {
 	right: 3px;
 	width: 11px;
 	height: 11px;
-	background: url(../images/ico-handler.gif) no-repeat;
+	background: url(../Images/ico-handler.gif) no-repeat;
 	overflow: hidden;
 	cursor: se-resize;
 }
@@ -96,7 +96,7 @@ h2 {
 	margin: 5px -5px 0;
 	display: block;
 	height: 11px;
-	background: #eee url(../images/ico-handler2.gif) no-repeat 50% 3px;
+	background: #eee url(../Images/ico-handler2.gif) no-repeat 50% 3px;
 	border: 1px solid #ddd;
 	overflow: hidden;
 	cursor: s-resize;
@@ -130,7 +130,7 @@ h2 {
 	margin: 5px -5px 0;
 	display: block;
 	height: 11px;
-	background: #eee url(../images/ico-handler2.gif) no-repeat 50% 3px;
+	background: #eee url(../Images/ico-handler2.gif) no-repeat 50% 3px;
 	border: 1px solid #ddd;
 	overflow: hidden;
 	cursor: s-resize;
