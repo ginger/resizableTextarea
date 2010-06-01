@@ -1,5 +1,5 @@
 /*
----
+--- 
 
 script: mootools.resizableTextarea.js
 
