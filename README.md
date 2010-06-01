@@ -59,9 +59,11 @@ How to use
 		- options [object]
 			- handler [string] - class or node for handler. Default ".handler"
 			- onResizeClass [string] - class for textarea during resizing. Default "resize"
-			- maxWidth [integer] - max width of textarea. Default 600
-			- maxHeight [integer] - max height of textarea. Default 400
-			- verticalOnly [boolean] - only vertical resizing mode. Default false
+			- modifiers {x:[boolean], y:[boolean] - horizontal, vertical or both
+			- size {x:[integer, integer], y:[integer, integer]} - max, min width and height for textarea
+			- onStart [function] - callback before resizing
+			- onEnd [function] - callback after resizing
+			- onResize [function] - callback during resizing
 			
 Screenshots
 -----------

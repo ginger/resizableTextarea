@@ -11,20 +11,29 @@
 			/* Example 1 */
 			var textarea = new resizableTextarea($$("div.textarea"), {
 				handler: ".handler",
-				maxWidth: 600,
-				maxHeight: 300
+				modifiers: {x: true, y: true},
+				size: {x:[100, 600], y:[50, 300]},
+				onResize: function(current) {
+					$("size").set("html", current.getElement("textarea").getWidth() + " " + current.getElement("textarea").getHeight());
+				}
 			});
 			/* Example 2 */
 			var textarea2 = new resizableTextarea($$("div.textarea2"), {
 				handler: ".handler",
-				maxHeight: 200,
-				verticalOnly: true
+				modifiers: {x: false, y: true},
+				size: {y:[50, 300]}
 			});
 			/* Example 3 */
-			var textarea2 = new resizableTextarea($$("div.textarea3"), {
+			var textarea3 = new resizableTextarea($$("div.textarea3"), {
 				handler: ".handler",
-				maxHeight: 200,
-				verticalOnly: true
+				modifiers: {x: true, y: false},
+				size: {x:[100, 600]}
+			});
+			/* Example 4 */
+			var textarea4 = new resizableTextarea($$("div.textarea4"), {
+				handler: ".handler",
+				modifiers: {x: false, y: true},
+				size: {y:[50, 200]}
 			});
 		});
 	</script>
@@ -32,20 +41,39 @@
 </head>
 <body>
 	<div id="wrapper">
-		<h1>Resizable textarea</h1>
+		<h1>resizableTextarea v.1.1 for Mootools 1.2</h1>
 		
 		<!-- Example 1 -->
 		<h2>Vertical and horizontal</h2>
+<code><pre>
+var textarea = new resizableTextarea($$("div.textarea"), {
+	handler: ".handler",
+	modifiers: {x: true, y: true},
+	size: {x:[100, 600], y:[50, 300]},
+	onResize: function(current) {
+		$("size").set("html", current.getWidth() + " " + current.getHeight());
+	}
+});
+</pre></code>
+		</code>
 		<form action="#">
 			<fieldset>
 				<div class="textarea">
 					<textarea cols="40" rows="5"></textarea>
 				</div>
+				<span id="size">&nbsp;</span>
 			</fieldset>
 		</form>
 		
 		<!-- Example 2 -->
 		<h2>Vertical only</h2>
+<code><pre>
+var textarea2 = new resizableTextarea($$("div.textarea2"), {
+	handler: ".handler",
+	modifiers: {x: false, y: true},
+	size: {y:[50, 300]}
+});
+</pre></code>		
 		<form action="#">
 			<fieldset>
 				<div class="textarea2">
@@ -53,14 +81,38 @@
 				</div>
 			</fieldset>
 		</form>
-	</div>
-	
-	<!-- Example 3 -->
-	<div class="holder">
-		<h2>Vertical only + flexible</h2>
+		
+		<!-- Example 3 -->
+		<h2>Horizontal only</h2>
+<code><pre>
+var textarea3 = new resizableTextarea($$("div.textarea3"), {
+	handler: ".handler",
+	modifiers: {x: true, y: false},
+	size: {x:[100, 600]}
+});
+</pre></code>	
 		<form action="#">
 			<fieldset>
 				<div class="textarea3">
+					<textarea cols="40" rows="5">Lorem dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Facilisis at vero eros et accumsan et iusto odio. Velit esse molestie consequat, vel illum dolore vulputate velit esse molestie consequat, vel illum.</textarea>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	
+	<!-- Example 4 -->
+	<div class="holder">
+		<h2>Vertical only + flexible</h2>
+<code><pre>
+var textarea4 = new resizableTextarea($$("div.textarea4"), {
+	handler: ".handler",
+	modifiers: {x: false, y: true},
+	size: {y:[50, 200]}
+});
+</pre></code>	
+		<form action="#">
+			<fieldset>
+				<div class="textarea4">
 					<textarea cols="40" rows="5"></textarea>
 				</div>
 			</fieldset>

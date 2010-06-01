@@ -38,7 +38,17 @@ h2 {
 	margin: 0 0 10px;
 	font-size: 16px;
 	line-height: 19px;
+	border-bottom: 4px solid #666;
 }
+code { display: block; }
+pre {
+	color: green;
+	margin: 0 0 10px;
+}
+#size {
+	display: block;
+}
+
 .resize textarea { opacity: 0.5; }
 
 /* Example 1 */
@@ -53,7 +63,7 @@ h2 {
 	margin: 0;
 	padding: 0;
 	float: left;
-	width: 400px;
+	width: 500px;
 	height: 100px;
 	border: 0;
 	font: 12px/15px Arial, Helvetica, sans-serif;
@@ -105,8 +115,39 @@ h2 {
 }
 
 /* Example 3 */
-.holder { margin: 10px 20px 0; }
 .textarea3 {
+	padding: 5px 5px 16px;
+	margin: 0 0 11px;
+	border: 1px solid #808080;
+	display: inline-block;
+	position: relative;
+}
+.textarea3 textarea {
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: 400px;
+	height: 100px;
+	border: 0;
+	font: 12px/15px Arial, Helvetica, sans-serif;
+	resize: none;
+	overflow: auto;
+	background: none;
+}
+.textarea3 .handler {
+	position: absolute;
+	bottom: 3px;
+	right: 3px;
+	width: 11px;
+	height: 11px;
+	background: url(../Images/ico-handler.gif) no-repeat;
+	overflow: hidden;
+	cursor: se-resize;
+}
+
+/* Example 4 */
+.holder { margin: 10px 20px 0; }
+.textarea4 {
 	padding: 5px 5px 0;
 	margin: 0 0 11px;
 	border: 1px solid #808080;
@@ -114,7 +155,7 @@ h2 {
 	height: 1%;
 	overflow: hidden;
 }
-.textarea3 textarea {
+.textarea4 textarea {
 	margin: 0;
 	padding: 0;
 	display: block;
@@ -126,7 +167,7 @@ h2 {
 	overflow: auto;
 	background: none;
 }
-.textarea3 .handler {
+.textarea4 .handler {
 	margin: 5px -5px 0;
 	display: block;
 	height: 11px;

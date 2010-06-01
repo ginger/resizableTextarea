@@ -1,10 +1,12 @@
 * html .textarea,
-* html .textarea2 {
+* html .textarea2,
+* html .textarea3 {
 	display: inline;
 	zoom: 1;
 }
 *+html .textarea,
-*+html .textarea2 {
+*+html .textarea2,
+*+html .textarea3 {
 	display: inline;
 	zoom: 1;
 }

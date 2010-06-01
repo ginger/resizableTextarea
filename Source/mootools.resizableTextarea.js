@@ -3,7 +3,7 @@
 
 script: mootools.resizableTextarea.js
 
-description: Resizable (as in webkit) textarea for MooTools.
+description: Resizable (as in webkit) textarea for MooTools
 
 license: MIT-style license
 
@@ -19,24 +19,52 @@ provides: [resizableTextarea]
 ...
 */
 var resizableTextarea = new Class({
-	Version: "1.0",
+	Version: "1.1",
 	Implements: [Options],
 	options: {
 		handler: ".handler",
-		maxWidth: 600,
-		maxHeight: 400,
-		verticalOnly: false,
-		onResizeClass: "resize"
+		modifiers: {x: true, y: true},
+		size: {x:[50, 500], y:[50, 500]},
+		onResizeClass: "resize",
+		onStart: function(current) {},
+		onEnd: function(current) {},
+		onResize: function(current) {}
 	},
 	initialize: function(holder, options) {
 		this.holder = holder;
 		this.setOptions(options);
+		
 		this.holder.each(function(el, i) {
 			el.textarea = el.getElement("textarea");
 			el.textarea.width = el.textarea.getWidth();
 			el.textarea.height = el.textarea.getHeight();
-			if(this.options.maxWidth < el.textarea.width) this.options.maxWidth = el.textarea.width;
-			if(this.options.maxHeight < el.textarea.height) this.options.maxHeight = el.textarea.height;
+			
+			if(this.options.modifiers.x) {
+				if(this.options.size.x[0] > this.options.size.x[1]) {
+					this.options.size.x[0] = this.options.size.x[1];
+				}
+				if(el.textarea.width < this.options.size.x[0]) {
+					el.textarea.setStyle("width", this.options.size.x[0]);
+					el.textarea.width = this.options.size.x[0];
+				}
+				else if(el.textarea.width > this.options.size.x[1]) {
+					el.textarea.setStyle("width", this.options.size.x[1]);
+					el.textarea.width = this.options.size.x[1];
+				}
+			}
+			if(this.options.modifiers.y) {
+				if(this.options.size.y[0] > this.options.size.y[1]) {
+					this.options.size.y[0] = this.options.size.y[1];
+				}
+				if(el.textarea.height < this.options.size.y[0]) {
+					el.textarea.setStyle("height", this.options.size.y[0]);
+					el.textarea.height = this.options.size.y[0];
+				}
+				else if(el.textarea.height > this.options.size.y[1]) {
+					el.textarea.setStyle("height", this.options.size.y[1]);
+					el.textarea.height = this.options.size.y[1];
+				}
+			}
 			
 			el.handler = el.getElement(this.options.handler);
 			if(el.handler == null) {
@@ -64,6 +92,7 @@ var resizableTextarea = new Class({
 				el.handler.x = e.page.x - el.handler.getPosition().x - el.handler.left;
 				el.handler.y = e.page.y - el.handler.getPosition().y - el.handler.top;
 				el.addClass(this.options.onResizeClass);
+				this.options.onStart(el);
 			}.bind(this));
 			
 			el.handler.addEvent("mouseup", function() {
@@ -78,38 +107,33 @@ var resizableTextarea = new Class({
 				}
 				el.handler.pressed = false;
 				el.removeClass(this.options.onResizeClass);
+				this.options.onEnd(el);
 			}.bind(this));
 			
 			el.handler.addEvent("mousemove", function(e) {
 				if(el.handler.pressed) {
-					el.textarea.newHeight = e.page.y - el.getPosition().y - el.handler.y;
-					el.textarea.newWidth = e.page.x - el.getPosition().x - el.handler.x;
-					if(el.textarea.newWidth < this.options.maxWidth && el.textarea.newWidth > el.textarea.width)
-						el.textarea.newWidth = el.textarea.newWidth;
-					else if(el.textarea.newWidth <= el.textarea.width) 
-						el.textarea.newWidth = el.textarea.width;
-					else el.textarea.newWidth = this.options.maxWidth;
-					
-					if(el.textarea.newHeight < this.options.maxHeight && el.textarea.newHeight > el.textarea.height)
-						el.textarea.newHeight = el.textarea.newHeight;
-					else if(el.textarea.newHeight <= el.textarea.height)
-						el.textarea.newHeight = el.textarea.height;
-					else el.textarea.newHeight = this.options.maxHeight;
-					
-					el.textarea.setStyles({
-						height: el.textarea.newHeight
-					});
-					el.handler.setStyles({
-						top: el.textarea.newHeight - el.handler.top - el.getStyle("border-top-width").toInt()
-					});
-					if(!this.options.verticalOnly) {
-						el.textarea.setStyles({
-							width: el.textarea.newWidth
-						});
-						el.handler.setStyles({
-							left: el.textarea.newWidth - el.handler.left - el.getStyle("border-left-width").toInt()
-						});
+					if(this.options.modifiers.x) {
+						el.textarea.newWidth = e.page.x - el.getPosition().x - el.handler.x;
+						if(el.textarea.newWidth < this.options.size.x[1] && el.textarea.newWidth > this.options.size.x[0])
+							el.textarea.newWidth = el.textarea.newWidth;
+						else if(el.textarea.newWidth <= this.options.size.x[0]) 
+							el.textarea.newWidth = this.options.size.x[0];
+						else el.textarea.newWidth = this.options.size.x[1];
+						el.textarea.setStyle("width", el.textarea.newWidth);
+						el.handler.setStyle("left", el.textarea.newWidth - el.handler.left - el.getStyle("border-left-width").toInt());
 					}
+					if(this.options.modifiers.y) {
+						el.textarea.newHeight = e.page.y - el.getPosition().y - el.handler.y;
+						if(el.textarea.newHeight < this.options.size.y[1] && el.textarea.newHeight > this.options.size.y[0])
+							el.textarea.newHeight = el.textarea.newHeight;
+						else if(el.textarea.newHeight <= this.options.size.y[0])
+							el.textarea.newHeight = this.options.size.y[0];
+						else el.textarea.newHeight = this.options.size.y[1];
+						
+						el.textarea.setStyle("height", el.textarea.newHeight);
+						el.handler.setStyle("top", el.textarea.newHeight - el.handler.top - el.getStyle("border-top-width").toInt());
+					}
+					this.options.onResize(el);
 				}
 			}.bind(this));
 		}.bind(this));
