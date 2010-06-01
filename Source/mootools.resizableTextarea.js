@@ -19,7 +19,7 @@ provides: [resizableTextarea]
 ...
 */
 var resizableTextarea = new Class({
-	Version: "1.1",
+	Version: "1.0.1",
 	Implements: [Options],
 	options: {
 		handler: ".handler",
